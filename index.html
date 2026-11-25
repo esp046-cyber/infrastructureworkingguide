@@ -63,6 +63,7 @@
       <div class="brand-m"><img src="./icons/icon-96.png" width="32" height="32" alt=""><strong>SCADA Guide</strong></div>
       <div class="top-actions">
         <button class="btn small" id="install-top" type="button" aria-label="Install app">Install app</button>
+        <button class="icon-btn" id="support-top" type="button" aria-label="Support or enquire" hidden><svg class="line" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></button>
         <button class="icon-btn" id="theme-btn" type="button" aria-label="Toggle light or dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
       </div>
     </header>
@@ -84,6 +85,18 @@
         <div class="row wrap"><button class="btn small" id="wl-install" type="button">Install app</button><button class="btn small ghost" id="wl-done" type="button">Got it</button></div>
       </aside>
       <section class="view" id="view-showcase" aria-labelledby="h-showcase">
+        <details class="overview" id="overview" open>
+          <summary><span><span class="ov-title">New to SCADA? Plain-English overview</span><span class="ov-sub">How a tunnel, pump station or power plant runs itself safely</span></span></summary>
+          <div class="ov-body">
+            <p>Modern tunnels, water plants and power stations look after themselves most of the time. Three layers work together, a bit like a body:</p>
+            <ul class="pillars">
+              <li class="pillar"><strong>Field Sensors &amp; Equipment <small>The Eyes &amp; Hands</small></strong><p class="pillar-text">Fans, pumps, lights and sensors inside the tunnel or plant. Sensors notice what is happening (air quality, water level, temperature) and equipment acts on it (a fan starts, a valve opens).</p></li>
+              <li class="pillar"><strong>PLC Controllers <small>The 24/7 Local Brain</small></strong><p class="pillar-text">Rugged backup computers (Siemens S7-400H) that keep safety systems running automatically, day and night. They work in pairs for redundancy, so if one fails the other carries on.</p></li>
+              <li class="pillar"><strong>SCADA &amp; HMI <small>The Control Room Screen</small></strong><p class="pillar-text">Central operator dashboards that monitor everything live and alert staff to issues. The SCADA system collects the data and the HMI screens show it to people.</p></li>
+            </ul>
+            <p class="hint ov-foot">Tap any underlined term for a one-line explanation.</p>
+          </div>
+        </details>
         <div class="stage" style="--bg-img:url('./assets/tunnel-bg.jpg')">
           <article class="panel" aria-labelledby="h-showcase">
             <p class="pill" role="status"><span class="dot" aria-hidden="true"></span>SYSTEM: ONLINE • DUAL FIBER RING</p>
@@ -103,8 +116,10 @@
           </article>
         </div>
 
+        <p class="purpose feature-purpose">A real example: the control system that keeps a road tunnel’s fans, lights and safety equipment running around the clock.</p>
         <section class="card topo" aria-labelledby="h-topo">
           <h2 id="h-topo">S7-400H redundancy topology</h2>
+          <p class="purpose">Shows how a spare PLC takes over instantly if the main one fails, so tunnel safety systems never stop.</p>
           <p class="hint">Tap or focus a node for failover and protocol details. Use the button to simulate a CPU failure.</p>
           <div class="topo-wrap">
             <svg id="topo-svg" viewBox="0 0 640 400" role="group" aria-labelledby="h-topo">
@@ -130,6 +145,8 @@
           <div class="topo-detail" id="topo-detail" aria-live="polite"></div>
         </section>
 
+        <h2 class="sec-h">More project examples</h2>
+        <p class="purpose">The same idea applied to power, water and data, showing the approach works across industries.</p>
         <div class="toolbar">
           <label class="search"><span class="sr">Search projects</span><input id="proj-search" type="search" placeholder="Search projects, protocols, vendors" autocomplete="off"></label>
           <div class="chips filter" id="proj-filters" role="group" aria-label="Filter projects"></div>
@@ -140,19 +157,23 @@
 
       <section class="view" id="view-standards" aria-labelledby="h-standards" hidden>
         <h2 class="vh" id="h-standards">Architecture and standards guide</h2>
+        <p class="purpose">The international rulebooks engineers follow so systems stay safe, secure and reliable.</p>
         <p class="lead">Quick reference for design reviews. Check the current edition of each standard before you cite it in a deliverable.</p>
         <div id="std-list"></div>
         <div class="card">
           <h3>IEC 62443 security levels</h3>
+          <p class="purpose">Four levels describing how determined an attacker a system is built to resist, so protection can match the risk.</p>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Security level table"><table id="sl-table"></table></div>
         </div>
       </section>
 
       <section class="view" id="view-tools" aria-labelledby="h-tools" hidden>
         <h2 class="vh" id="h-tools">Field engineer tools</h2>
+        <p class="purpose">Everyday calculators and checklists engineers use on site, all working without internet, so commissioning work stays accurate and is never lost.</p>
 
         <div class="card" id="card-checklist">
           <div class="row between"><h3>FAT / SAT commissioning checklist</h3><span class="tag" id="cl-progress" role="status">0 / 0</span></div>
+          <p class="purpose">A step-by-step FAT/SAT test list for proving the system works before and after installation, so nothing is handed over untested.</p>
           <div class="profile">
             <label>Project / site<select id="site-select"></select></label>
             <label>Engineer name<input id="cl-engineer" autocomplete="name" maxlength="60"></label>
@@ -171,6 +192,7 @@
 
         <div class="card" id="card-backup">
           <h3>Backup and restore</h3>
+          <p class="purpose">Saves your checklist work to a file you can restore later, so a phone change or cleared browser never loses weeks of work.</p>
           <p class="hint">Checklist progress, site profiles and queued enquiries live only on this device. Safari can clear website data after about 7 days without use in a browser tab (installed home-screen apps are exempt). Export a backup after each session.</p>
           <div class="row wrap"><button class="btn small" id="bk-export" type="button">Export Full Backup (.json)</button><button class="btn small ghost" id="bk-import" type="button">Import Backup (.json)</button></div>
           <input id="bk-file" type="file" accept="application/json,.json" aria-label="Choose backup file" hidden>
@@ -178,6 +200,7 @@
 
         <div class="card" id="card-tags">
           <h3>ISA PLC / SCADA tag naming generator</h3>
+          <p class="purpose">Creates consistent names for equipment signals, so everyone on the project recognises the same pump or valve.</p>
           <form id="tag-form" class="form-grid" novalidate>
             <label>Site code<input id="tg-site" value="DKT" maxlength="6" autocomplete="off"></label>
             <label>Area / unit<input id="tg-area" value="VNT" maxlength="6" autocomplete="off"></label>
@@ -192,6 +215,7 @@
 
         <div class="card" id="card-bw">
           <h3>SCADA polling and network bandwidth estimator</h3>
+          <p class="purpose">Estimates how much data the SCADA system moves around, so the network is never overloaded.</p>
           <form id="bw-form" class="form-grid" novalidate>
             <label>Tags polled<input id="bw-tags" type="number" min="1" value="5000"></label>
             <label>Avg bytes per tag<input id="bw-bytes" type="number" min="1" value="4"></label>
@@ -205,6 +229,7 @@
 
         <div class="card" id="card-fiber">
           <h3>Fibre ring attenuation (loss budget)</h3>
+          <p class="purpose">Checks that the light signal survives the length of cable, so the network link stays reliable.</p>
           <p class="hint">Calculate each ring span (switch to switch) on its own. The longest span is the critical one.</p>
           <form id="fb-form" class="form-grid" novalidate>
             <label>Distance (km)<input id="fb-km" type="number" min="0" step="any" value="10" inputmode="decimal"></label>
@@ -222,6 +247,7 @@
 
         <div class="card" id="card-analog">
           <h3>4–20 mA / Siemens S7 analog scaling</h3>
+          <p class="purpose">Turns a sensor’s electrical signal into a real reading such as pressure or level, so operators see true values and spot wiring faults.</p>
           <p class="hint">Edit any field and the others update. Siemens raw counts: 4 mA = 0, 20 mA = 27648.</p>
           <form id="an-form" class="form-grid" novalidate>
             <label>LRV (0 %)<input id="an-lrv" type="number" step="any" value="0" inputmode="decimal"></label>
@@ -238,6 +264,7 @@
 
         <div class="card" id="card-lookup">
           <h3>OT protocol and diagnostics lookup</h3>
+          <p class="purpose">A quick dictionary for error codes and warning lights, so faults are understood and fixed faster.</p>
           <label class="search"><span class="sr">Search reference</span><input id="lk-search" type="search" placeholder="Search codes, LEDs, security levels" autocomplete="off"></label>
           <div class="chips filter" id="lk-filters" role="group" aria-label="Reference category"></div>
           <ul class="lk-list" id="lk-list" aria-live="polite"></ul>
@@ -265,6 +292,7 @@
     <h2 id="call-title">Emergency OT support</h2>
     <p>For live plant faults: loss of SCADA, redundancy failure, or network outage. Have the site name, PLC station and alarm text ready.</p>
     <a class="btn danger block" id="call-link" href="tel:+97100000000">Call +971 0 000 0000</a>
+    <button class="btn block" type="button" id="call-enquire">Send an enquiry instead</button>
     <button class="btn ghost block" value="close">Close</button>
   </form>
 </dialog>
@@ -276,6 +304,7 @@
       <button type="button" data-topic="spec" aria-pressed="false">Tunnel Automation Spec</button>
       <button type="button" data-topic="arch" aria-pressed="false">S7-400H / WinCC Architecture</button>
       <button type="button" data-topic="audit" aria-pressed="false">2026 SCADA Audit</button>
+      <button type="button" data-topic="consult" aria-pressed="false">New Project Consultation (Non-Technical)</button>
     </div>
     <label>Name<input id="enq-name" required autocomplete="name"><small class="err" id="err-name"></small></label>
     <label>Email<input id="enq-email" type="email" required autocomplete="email"><small class="err" id="err-email"></small></label>
@@ -295,6 +324,7 @@
   </div>
 </dialog>
 
+<div id="term-pop" class="term-pop" role="status" aria-live="polite" hidden><div><strong id="term-pop-title"></strong><p id="term-pop-text"></p></div><button class="icon-btn" id="term-pop-close" type="button" aria-label="Close explanation">&times;</button></div>
 <section id="print-report" aria-label="Printable commissioning report"></section>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <noscript><p style="padding:24px;font-family:sans-serif">This guide needs JavaScript. Open <a href="./offline.html">the offline emergency checklists</a> instead.</p></noscript>

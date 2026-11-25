@@ -19,15 +19,16 @@ All paths are relative (`./`), so the site works under the `/infrastructureworki
 ## Verify (Lighthouse PWA)
 1. Open the live URL in Chrome, then DevTools > **Lighthouse**.
 2. Select **Progressive Web App** (and Performance, Accessibility, Best Practices) and run on Mobile.
-3. Check DevTools > **Application**: Manifest shows no errors, Service Workers shows `sw.js` activated, and Cache Storage has `scada-guide-2026-v4`.
+3. Check DevTools > **Application**: Manifest shows no errors, Service Workers shows `sw.js` activated, and Cache Storage has `scada-guide-2026-v6`.
 4. Tick **Offline** in Network, reload, and confirm the app still loads.
 Aim for 100 in each category. Scores can vary with hosting and your Chrome version; fix whatever the report flags.
 
 ## Updating
-Change files, then bump `CACHE` in `sw.js` (for example `scada-guide-2026-v5`). Returning users see an "Update" toast.
+Change files, then bump `CACHE` in `sw.js` (for example `scada-guide-2026-v7`). Returning users see an "Update" toast.
 
 ## Notes
 - Data is stored in `localStorage` with an in-memory fallback. Use Tools > Backup and restore to protect multi-week commissioning data.
+- Plain-English layer: collapsible overview, one-line purpose under every section and tool, and tappable terms (PLC, SCADA, HMI, FAT/SAT, redundancy). Edit the wording in `index.html` and the `TERMS` / `STANDARDS` / `PROJECTS` data in `js/app.js`.
 - Field tools: S7-400H topology diagram, 4-20 mA / S7 scaling calculator, OT lookup, tag generator, bandwidth estimator, FAT/SAT checklist.
 - Standards content is a quick reference. Check the current edition of each standard before citing it.
 - Icons and images were generated with Python (Pillow) by `build.py`.

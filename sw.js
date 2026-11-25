@@ -1,5 +1,5 @@
 /* SCADA Guide 2026 service worker. All paths relative to the SW scope (/infrastructureworkingguide/). */
-const CACHE = 'scada-guide-2026-v4';
+const CACHE = 'scada-guide-2026-v6';
 const PRECACHE = [
   './', './index.html', './offline.html', './manifest.webmanifest', './css/styles.css', './js/app.js',
   './favicon.ico', './favicon.svg', './apple-touch-icon.png', './icons/favicon-16x16.png', './icons/favicon-32x32.png',
