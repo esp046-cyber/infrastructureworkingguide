@@ -8,7 +8,7 @@ const CONFIG = {
   phone: '+971 0 000 0000',
   email: 'scada.support@example.com',
   swUrl: './sw.js',
-  storage: { theme: 'scada-theme', checklist: 'scada-checklist-v1', queue: 'scada-enquiry-queue', installDismissed: 'scada-install-dismissed', welcome: 'scada-welcome-dismissed', sites: 'scada-sites-v2' }
+  storage: { theme: 'scada-theme', checklist: 'scada-checklist-v1', queue: 'scada-enquiry-queue', installDismissed: 'scada-install-dismissed', welcome: 'scada-welcome-dismissed', sites: 'scada-sites-v2', overview: 'scada-overview-open' }
 };
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -33,27 +33,27 @@ const store = {
 
 /* ------------------------------------------------------------ data */
 const PROJECTS = [
-  { id: 'tunnel', cat: 'Tunnel', title: 'Tunnel automation: S7-400H hot standby', text: 'Redundant S7-400H pair, WinCC SCADA station and WinCC Flexible HMI over a dual fiber ring. Ventilation, lighting, fire detection and traffic control with bumpless failover.', tags: ['S7-400H', 'WinCC', 'MRP ring', 'PROFINET'] },
-  { id: 'grid', cat: 'Power', title: 'Smart grid substation: IEC 61850 / DNP3', text: 'Substation automation with IEC 61850 GOOSE for protection interlocking, MMS to the gateway and DNP3 to the control centre. HSR/PRP station bus for zero-recovery-time redundancy.', tags: ['IEC 61850', 'DNP3', 'GOOSE', 'HSR/PRP'] },
-  { id: 'water', cat: 'Water', title: 'Desalination and pumping: OPC-UA / Modbus TCP', text: 'Pump station and RO train control with Modbus TCP field devices aggregated to OPC UA servers. Redundant SCADA servers, VFD integration and historian trending.', tags: ['OPC UA', 'Modbus TCP', 'VFD', 'Historian'] },
-  { id: 'uns', cat: 'Data', title: 'AI-ready Unified Namespace: MQTT Sparkplug B', text: 'Edge gateways publish Sparkplug B births and data to a clustered broker, giving one semantic namespace for SCADA, MES and analytics models. Store-and-forward on edge for link loss.', tags: ['MQTT', 'Sparkplug B', 'UNS', 'Edge'] }
+  { id: 'tunnel', cat: 'Tunnel', plain: 'Keeps the fans, lights and fire safety equipment of a road tunnel running automatically, with a backup ready if anything fails.', title: 'Tunnel automation: S7-400H hot standby', text: 'Redundant S7-400H pair, WinCC SCADA station and WinCC Flexible HMI over a dual fiber ring. Ventilation, lighting, fire detection and traffic control with bumpless failover.', tags: ['S7-400H', 'WinCC', 'MRP ring', 'PROFINET'] },
+  { id: 'grid', cat: 'Power', plain: 'Lets an electrical substation protect itself and report to the control centre in a fraction of a second, keeping the lights on.', title: 'Smart grid substation: IEC 61850 / DNP3', text: 'Substation automation with IEC 61850 GOOSE for protection interlocking, MMS to the gateway and DNP3 to the control centre. HSR/PRP station bus for zero-recovery-time redundancy.', tags: ['IEC 61850', 'DNP3', 'GOOSE', 'HSR/PRP'] },
+  { id: 'water', cat: 'Water', plain: 'Runs the pumps and filtration that make drinking water, so supply continues without constant manual attention.', title: 'Desalination and pumping: OPC-UA / Modbus TCP', text: 'Pump station and RO train control with Modbus TCP field devices aggregated to OPC UA servers. Redundant SCADA servers, VFD integration and historian trending.', tags: ['OPC UA', 'Modbus TCP', 'VFD', 'Historian'] },
+  { id: 'uns', cat: 'Data', plain: 'Puts all plant data in one organised place, so managers and analytics tools see the same live picture.', title: 'AI-ready Unified Namespace: MQTT Sparkplug B', text: 'Edge gateways publish Sparkplug B births and data to a clustered broker, giving one semantic namespace for SCADA, MES and analytics models. Store-and-forward on edge for link loss.', tags: ['MQTT', 'Sparkplug B', 'UNS', 'Edge'] }
 ];
 
 const STANDARDS = [
-  { id: 'isa112', title: 'ANSI/ISA-112 SCADA lifecycle', badge: 'Lifecycle', body: [
+  { id: 'isa112', title: 'ANSI/ISA-112 SCADA lifecycle', badge: 'Lifecycle', plain: 'A roadmap for planning, building and maintaining a control system, so projects stay on track and nothing is forgotten.', body: [
     'ISA-112 defines a lifecycle for SCADA systems, from requirements through decommissioning, so owners and integrators work to one common process.',
     'Lifecycle stages to plan and document: requirements and philosophy, architecture and design, procurement, development, FAT, installation and SAT, operation, maintenance, and decommissioning.',
     'Artefacts to keep under change control: SCADA philosophy, network and security architecture, I/O and tag database, alarm philosophy, test protocols and as-built records.' ] },
-  { id: 'iec62443', title: 'IEC 62443 zones and conduits', badge: 'Security', body: [
+  { id: 'iec62443', title: 'IEC 62443 zones and conduits', badge: 'Security', plain: 'Rules for protecting plant control systems from cyber attacks, so outsiders cannot interfere with critical infrastructure.', body: [
     'Group assets into zones with common security requirements, then connect zones only through conduits that carry controlled traffic (firewalls, DMZ, data diodes where justified).',
     'Set a target security level (SL-T) per zone and conduit from the risk assessment, then show the achieved level (SL-A) from the controls actually implemented.',
     'Typical zones: field/PLC cell, control network, SCADA servers, DMZ / historian, and enterprise. Keep remote access terminated in the DMZ with MFA.' ] },
-  { id: 'redundancy', title: 'Redundancy topologies', badge: 'Availability', body: [
+  { id: 'redundancy', title: 'Redundancy topologies', badge: 'Availability', plain: 'Spare equipment and backup network paths that take over automatically, so one fault never means a shutdown.', body: [
     'Hot-standby servers: two SCADA servers with state synchronisation and a dedicated heartbeat. Clients reconnect to the surviving node; verify alarm and archive consistency after switchover.',
     'MRP (IEC 62439-2) fiber ring: a ring manager blocks one port and reconfigures on a break. Typical recovery is in the order of 200 ms (configurable profiles go lower); check this against your process tolerance.',
     'HSR/PRP (IEC 62439-3): frames travel both paths, so a single failure causes zero recovery time. Used for protection-grade substation buses.',
     'S7-400H: two CPUs in lockstep over sync modules, redundant I/O optional. Test every failure case in FAT: CPU, sync link, power, and I/O module.' ] },
-  { id: 'isa182', title: 'ISA-18.2 alarm management KPIs', badge: 'Alarms', body: [
+  { id: 'isa182', title: 'ISA-18.2 alarm management KPIs', badge: 'Alarms', plain: 'Guidelines for keeping alarms few and useful, so operators notice real problems instead of drowning in false ones.', body: [
     'Steady-state alarm rate: fewer than 6 alarms per hour per operator.',
     'Flood threshold: fewer than 10 alarms in any 10-minute period.',
     'Priority distribution: 80% Low, 15% Medium, 5% High.',
@@ -158,6 +158,9 @@ const Nav = {
     this.views.forEach((n) => { $('#view-' + n).hidden = n !== v; });
     $$('.nav-btn').forEach((b) => { if (b.dataset.view === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
     if (push && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
+    Terms.hide();
+    document.body.dataset.view = v;
+    $('#support-top').hidden = v === 'showcase';
     window.scrollTo({ top: 0 });
     document.title = { showcase: 'Project showcase', standards: 'Standards guide', tools: 'Field tools' }[v] + ' | SCADA Guide 2026';
   }
@@ -179,13 +182,14 @@ const Showcase = {
   },
   render() {
     const q = $('#proj-search').value.trim().toLowerCase();
-    const list = PROJECTS.filter((p) => (this.cat === 'All' || p.cat === this.cat) && (p.title + ' ' + p.text + ' ' + p.tags.join(' ')).toLowerCase().includes(q));
+    const list = PROJECTS.filter((p) => (this.cat === 'All' || p.cat === this.cat) && (p.title + ' ' + p.plain + ' ' + p.text + ' ' + p.tags.join(' ')).toLowerCase().includes(q));
     const grid = $('#proj-grid');
     grid.replaceChildren(...list.map((p) => {
       const tags = el('ul', { class: 'chips' }, ...p.tags.map((t) => el('li', { class: 'tag', text: t })));
-      return el('article', { class: 'proj' }, el('h3', { text: p.title }), el('p', { text: p.text }), tags);
+      return el('article', { class: 'proj' }, el('h3', { text: p.title }), el('p', { class: 'purpose', text: p.plain }), el('p', { text: p.text }), tags);
     }));
     $('#proj-empty').hidden = list.length > 0;
+    Terms.scan(grid);
   }
 };
 
@@ -196,7 +200,7 @@ const Standards = {
     STANDARDS.forEach((s, i) => {
       const d = el('details', { class: 'std' });
       if (i === 0) d.open = true;
-      d.append(el('summary', {}, el('span', { text: s.title }), el('span', { class: 'tag', text: s.badge })));
+      d.append(el('summary', {}, el('span', { class: 'sum' }, el('strong', { text: s.title }), el('span', { class: 'purpose', text: s.plain })), el('span', { class: 'tag', text: s.badge })));
       const body = el('div', { class: 'body' });
       s.body.forEach((t) => body.append(el('p', { text: t })));
       d.append(body);
@@ -529,7 +533,88 @@ const Welcome = {
 const TOPICS = {
   spec: { label: 'Tunnel Automation Spec', type: 'Spec sheet request', text: 'Hello, please send the specification sheet for the tunnel automation system (S7-400H PLC, WinCC SCADA, redundant fibre-optic ring).\nProject and location: \nRequired by: ' },
   arch: { label: 'S7-400H / WinCC Architecture', type: 'Project enquiry', text: 'Hello, I would like to discuss a redundant S7-400H and WinCC architecture.\nApproximate I/O count: \nRedundancy requirements: \nProject and location: ' },
-  audit: { label: '2026 SCADA Audit', type: 'SCADA audit', text: 'Hello, I would like to request a 2026 SCADA audit covering architecture, IEC 62443 zones and conduits, and ISA-18.2 alarm management.\nSite and system: \nCurrent SCADA platform: ' }
+  audit: { label: '2026 SCADA Audit', type: 'SCADA audit', text: 'Hello, I would like to request a 2026 SCADA audit covering architecture, IEC 62443 zones and conduits, and ISA-18.2 alarm management.\nSite and system: \nCurrent SCADA platform: ' },
+  consult: { label: 'New Project Consultation', type: 'Project enquiry', text: 'Hello, I am planning a project and would like a friendly, non-technical conversation about how a monitoring and control system could help.\nWhat the project is (for example a tunnel, pump station or building): \nWhere it is: \nWhen I would like to start: \nAnything I am unsure or worried about: ' }
+};
+
+/* ------------------------------------------------------------ plain-English layer: overview + tappable terms */
+const TERMS = {
+  'PLC': ['PLC (Programmable Logic Controller)', 'A rugged industrial computer that runs equipment automatically, around the clock.'],
+  'SCADA': ['SCADA (Supervisory Control and Data Acquisition)', 'Software that gathers live data from a whole site and shows it to operators on screens.'],
+  'HMI': ['HMI (Human-Machine Interface)', 'A screen where a person sees what equipment is doing and can give it commands.'],
+  'FAT / SAT': ['FAT / SAT (Factory and Site Acceptance Tests)', 'Checks that the system works before it leaves the factory (FAT) and again once it is installed on site (SAT).'],
+  'Redundancy': ['Redundancy', 'Keeping a spare unit ready to take over automatically if the main one fails.']
+};
+const TERM_RE = /\b(PLCs?|SCADA|HMIs?|FAT ?\/ ?SAT|FAT|SAT|[Rr]edundan(?:cy|t))\b/g;
+const Overview = {
+  init() {
+    const d = $('#overview');
+    if (store.get(CONFIG.storage.overview, true) === false) d.open = false;
+    d.addEventListener('toggle', () => store.set(CONFIG.storage.overview, d.open));
+  }
+};
+const Terms = {
+  sel: '.overview, .welcome, .panel, .purpose, .lead, .proj, details.std .body',
+  skip: 'button,label,summary,a,option,textarea,select,svg,script,style,pre,dialog,input,h1,h2,h3,h4,.term-tip',
+  active: null,
+  key(m) {
+    if (/^PLC/.test(m)) return 'PLC';
+    if (/^SCADA/.test(m)) return 'SCADA';
+    if (/^HMI/.test(m)) return 'HMI';
+    if (/^(FAT|SAT)/.test(m)) return 'FAT / SAT';
+    return 'Redundancy';
+  },
+  init() {
+    document.addEventListener('click', (e) => {
+      const b = e.target.closest('.term-tip');
+      if (b) { if (this.active === b && !$('#term-pop').hidden) this.hide(); else this.show(b); return; }
+      if (!e.target.closest('#term-pop')) this.hide();
+    });
+    $('#term-pop-close').addEventListener('click', () => this.hide());
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.hide(); });
+    this.scan(document);
+  },
+  show(btn) {
+    const t = TERMS[btn.dataset.term];
+    if (!t) return;
+    if (this.active) this.active.setAttribute('aria-expanded', 'false');
+    this.active = btn;
+    btn.setAttribute('aria-expanded', 'true');
+    $('#term-pop-title').textContent = t[0];
+    $('#term-pop-text').textContent = t[1];
+    $('#term-pop').hidden = false;
+  },
+  hide() {
+    $('#term-pop').hidden = true;
+    if (this.active) this.active.setAttribute('aria-expanded', 'false');
+    this.active = null;
+  },
+  scan(root) {
+    const list = new Set(root.querySelectorAll ? root.querySelectorAll(this.sel) : []);
+    if (root.matches && root.matches(this.sel)) list.add(root);
+    list.forEach((c) => {
+      const seen = new Set($$('.term-tip', c).map((b) => b.dataset.term));
+      const walker = document.createTreeWalker(c, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach((n) => {
+        const p = n.parentElement;
+        if (!p || p.closest(this.skip)) return;
+        const text = n.nodeValue, frag = document.createDocumentFragment();
+        let last = 0, hit = false;
+        for (const m of text.matchAll(TERM_RE)) {
+          const k = this.key(m[0]);
+          if (seen.has(k)) continue;
+          seen.add(k); hit = true;
+          frag.append(text.slice(last, m.index), el('button', { type: 'button', class: 'term-tip', 'data-term': k, 'aria-expanded': 'false', text: m[0] }));
+          last = m.index + m[0].length;
+        }
+        if (!hit) return;
+        frag.append(text.slice(last));
+        n.replaceWith(frag);
+      });
+    });
+  }
 };
 
 /* ------------------------------------------------------------ backup and restore */
@@ -604,7 +689,7 @@ const ModalState = {
     if (typeof HTMLDialogElement === 'undefined') return;
     const sm = HTMLDialogElement.prototype.showModal;
     HTMLDialogElement.prototype.showModal = function () { document.body.classList.add('modal-open'); return sm.call(this); };
-    $$('dialog').forEach((d) => d.addEventListener('close', () => document.body.classList.remove('modal-open')));
+    $$('dialog').forEach((d) => d.addEventListener('close', () => { if (!$$('dialog[open]').length) document.body.classList.remove('modal-open'); }));
   }
 };
 
@@ -624,6 +709,8 @@ const Enquiry = {
     $('#call-link').href = 'tel:' + CONFIG.phone.replace(/[^+\d]/g, '');
     $('#call-link').textContent = 'Call ' + CONFIG.phone;
     $('#call-btn').addEventListener('click', () => call.showModal());
+    $('#support-top').addEventListener('click', () => call.showModal());
+    $('#call-enquire').addEventListener('click', () => { call.close(); $('#enq-status').textContent = ''; enq.showModal(); });
     $('#enq-btn').addEventListener('click', () => { $('#enq-status').textContent = ''; enq.showModal(); });
     $('#enq-cancel').addEventListener('click', () => enq.close());
     $('#enq-copy').addEventListener('click', () => this.copy());
@@ -769,10 +856,11 @@ const PWA = {
 
 /* ------------------------------------------------------------ boot */
 function boot() {
-  Theme.init(); Showcase.init(); Standards.init(); Checklist.init(); Tags.init(); Bandwidth.init(); Fiber.init(); Backup.init(); ModalState.init(); Analog.init(); Lookup.init(); Topology.init(); Welcome.init(); Enquiry.init(); PWA.init();
+  Theme.init(); Showcase.init(); Standards.init(); Checklist.init(); Tags.init(); Bandwidth.init(); Fiber.init(); Backup.init(); ModalState.init(); Analog.init(); Lookup.init(); Topology.init(); Welcome.init(); Overview.init(); Enquiry.init(); PWA.init();
   $('#skeleton').remove();
   ['#shell', '#actionbar', '#bottomnav'].forEach((s) => { $(s).hidden = false; });
   Nav.init();
   Keyboard.init();
+  Terms.init();
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
