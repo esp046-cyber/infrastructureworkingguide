@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2026 Infrastructure &amp; SCADA Engineering Working Guide</title>
+<meta name="description" content="Field and project guide for SCADA engineers: tunnel automation (S7-400H, WinCC), IEC 62443, ISA-18.2, FAT/SAT checklists, tag generator and bandwidth estimator. Works offline.">
+<meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#181A1F" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://esp046-cyber.github.io/infrastructureworkingguide/">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./favicon.ico" sizes="48x48">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SCADA Guide">
+<meta property="og:type" content="website">
+<meta property="og:title" content="2026 Infrastructure &amp; SCADA Engineering Working Guide">
+<meta property="og:description" content="Tunnel automation case studies, IEC 62443, ISA-18.2, FAT/SAT tools. Installable, works offline.">
+<meta property="og:url" content="https://esp046-cyber.github.io/infrastructureworkingguide/">
+<meta property="og:image" content="https://esp046-cyber.github.io/infrastructureworkingguide/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="2026 Infrastructure and SCADA Engineering Working Guide: tunnel automation case study">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2026 Infrastructure &amp; SCADA Engineering Working Guide">
+<meta name="twitter:description" content="Tunnel automation case studies, IEC 62443, ISA-18.2, FAT/SAT tools. Installable, works offline.">
+<meta name="twitter:image" content="https://esp046-cyber.github.io/infrastructureworkingguide/assets/og-image.png">
+<meta name="twitter:image:alt" content="2026 Infrastructure and SCADA Engineering Working Guide: tunnel automation case study">
+<script>
+(function(){try{var t=localStorage.getItem('scada-theme');if(!t){t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
+<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div id="skeleton" aria-hidden="true">
+  <div class="sk sk-hero"></div><div class="sk sk-line"></div><div class="sk sk-line short"></div>
+</div>
+
+<div id="offline-badge" class="offline-badge" role="status" aria-live="polite" hidden>Offline: showing saved content</div>
+
+<div class="shell" id="shell" hidden>
+  <aside class="sidebar" aria-label="Primary">
+    <div class="brand"><img src="./icons/icon-96.png" width="40" height="40" alt=""><span>SCADA Guide<small>2026 edition</small></span></div>
+    <nav class="nav" aria-label="Sections">
+      <button class="nav-btn" data-view="showcase" type="button" aria-label="Project showcase"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V9l9-6 9 6v11h-6v-6H9v6z"/></svg>Showcase</button>
+      <button class="nav-btn" data-view="standards" type="button" aria-label="Architecture and standards"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg>Standards</button>
+      <button class="nav-btn" data-view="tools" type="button" aria-label="Calculators and checklists"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4zm0 6h7v10H4zm9 0h7v4h-7zm0 6h7v4h-7z"/></svg>Tools</button>
+    </nav>
+    <div class="side-foot"><button class="btn ghost" id="theme-btn-side" type="button" aria-label="Toggle light or dark theme">Theme</button></div>
+  </aside>
+
+  <div class="content">
+    <header class="topbar">
+      <div class="brand-m"><img src="./icons/icon-96.png" width="32" height="32" alt=""><strong>SCADA Guide</strong></div>
+      <div class="top-actions">
+        <button class="btn small" id="install-top" type="button" aria-label="Install app">Install app</button>
+        <button class="icon-btn" id="theme-btn" type="button" aria-label="Toggle light or dark theme"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
+      </div>
+    </header>
+
+    <div id="install-banner" class="install-banner" hidden>
+      <span>Install this guide for offline use on site.</span>
+      <button class="btn small" id="install-btn" type="button">Install app</button>
+      <button class="icon-btn" id="install-dismiss" type="button" aria-label="Dismiss install banner">&times;</button>
+    </div>
+
+    <main id="main" tabindex="-1">
+      <aside class="welcome" id="welcome" hidden aria-labelledby="wl-title">
+        <div class="row between"><h2 id="wl-title">Welcome to the SCADA Guide</h2><button class="icon-btn" id="wl-close" type="button" aria-label="Dismiss welcome guide">&times;</button></div>
+        <ol class="wl-steps">
+          <li><strong>Browse case studies.</strong> Start with the tunnel project and tap the topology nodes, then filter the other deployments.</li>
+          <li><strong>Use the calculators offline.</strong> Open Tools for scaling, tag names, bandwidth and the FAT/SAT checklist. Data stays on your device.</li>
+          <li><strong>Install the app.</strong> Add it to your home screen so it opens full screen, even without signal.</li>
+        </ol>
+        <div class="row wrap"><button class="btn small" id="wl-install" type="button">Install app</button><button class="btn small ghost" id="wl-done" type="button">Got it</button></div>
+      </aside>
+      <section class="view" id="view-showcase" aria-labelledby="h-showcase">
+        <div class="stage" style="--bg-img:url('./assets/tunnel-bg.jpg')">
+          <article class="panel" aria-labelledby="h-showcase">
+            <p class="pill" role="status"><span class="dot" aria-hidden="true"></span>SYSTEM: ONLINE • DUAL FIBER RING</p>
+            <h1 id="h-showcase">INFRASTRUCTURE – TUNNEL AUTOMATION</h1>
+            <p class="sub">Dibba to Khorfakkan Ring Road Tunnel</p>
+            <p class="client">Client: Ministry of Public Works</p>
+            <h3>System used</h3>
+            <ul>
+              <li>Siemens S7 400-H PLC system</li>
+              <li>Siemens WinCC SCADA station</li>
+              <li>Siemens WinCC flexible HMI</li>
+              <li>Dual redundant fibre-optic ring network communication</li>
+            </ul>
+            <h3>Scope of Work</h3>
+            <p>PLC control panels, HMI and SCADA system</p>
+            <p class="loc">United Arab Emirates</p>
+          </article>
+        </div>
+
+        <section class="card topo" aria-labelledby="h-topo">
+          <h2 id="h-topo">S7-400H redundancy topology</h2>
+          <p class="hint">Tap or focus a node for failover and protocol details. Use the button to simulate a CPU failure.</p>
+          <div class="topo-wrap">
+            <svg id="topo-svg" viewBox="0 0 640 400" role="group" aria-labelledby="h-topo">
+              <g class="tp-link"><line x1="145" y1="80" x2="145" y2="130"/><line x1="495" y1="80" x2="495" y2="130"/><line x1="145" y1="220" x2="145" y2="250"/><line x1="495" y1="220" x2="495" y2="250"/>
+                <polyline points="145,310 145,357 235,357"/><polyline points="495,310 495,357 405,357"/></g>
+              <g class="tp-link tp-dash"><line x1="230" y1="50" x2="410" y2="50"/><line x1="230" y1="280" x2="410" y2="280"/></g>
+              <text class="tp-label" x="320" y="42">heartbeat</text><text class="tp-label" x="320" y="272">sync (fibre)</text>
+              <g class="tp-node" data-node="ring" tabindex="0" role="button" aria-label="Redundant fibre-optic ring">
+                <path class="tp-hit" d="M60 130H580a20 20 0 0 1 20 20V200a20 20 0 0 1-20 20H60a20 20 0 0 1-20-20V150a20 20 0 0 1 20-20z"/>
+                <path class="tp-ring" d="M60 130H580a20 20 0 0 1 20 20V200a20 20 0 0 1-20 20H60a20 20 0 0 1-20-20V150a20 20 0 0 1 20-20z"/>
+                <text x="320" y="180">Redundant fibre-optic ring (MRP)</text></g>
+              <g class="tp-node" data-node="srv1" tabindex="0" role="button" aria-label="WinCC SCADA server A"><rect x="60" y="20" width="170" height="60" rx="10"/><text x="145" y="48">WinCC Server A</text><text class="sm" x="145" y="66">SCADA</text></g>
+              <g class="tp-node" data-node="srv2" tabindex="0" role="button" aria-label="WinCC SCADA server B"><rect x="410" y="20" width="170" height="60" rx="10"/><text x="495" y="48">WinCC Server B</text><text class="sm" x="495" y="66">SCADA</text></g>
+              <g class="tp-node" data-node="cpu0" id="tp-cpu0" tabindex="0" role="button" aria-label="S7-400H CPU 0"><rect x="60" y="250" width="170" height="60" rx="10"/><text x="145" y="278">S7-400H CPU 0</text><text class="sm" id="tp-s0" x="145" y="297">PRIMARY</text></g>
+              <g class="tp-node" data-node="cpu1" id="tp-cpu1" tabindex="0" role="button" aria-label="S7-400H CPU 1"><rect x="410" y="250" width="170" height="60" rx="10"/><text x="495" y="278">S7-400H CPU 1</text><text class="sm" id="tp-s1" x="495" y="297">STANDBY</text></g>
+              <g class="tp-badge" id="tp-m0" aria-hidden="true"><rect x="168" y="241" width="56" height="20" rx="10"/><text x="196" y="255">MSTR</text></g>
+              <g class="tp-badge off" id="tp-m1" aria-hidden="true"><rect x="518" y="241" width="56" height="20" rx="10"/><text x="546" y="255">MSTR</text></g>
+              <text class="tp-sw off" id="tp-sw" x="320" y="306">switchover &lt; 50 ms</text>
+              <g class="tp-node" data-node="rio" tabindex="0" role="button" aria-label="Field remote I/O"><rect x="235" y="330" width="170" height="54" rx="10"/><text x="320" y="355">Field RIO</text><text class="sm" x="320" y="372">remote I/O</text></g>
+            </svg>
+          </div>
+          <div class="row wrap"><button class="btn small ghost" id="topo-fail" type="button" aria-pressed="false">Simulate CPU 0 failure</button></div>
+          <div class="topo-detail" id="topo-detail" aria-live="polite"></div>
+        </section>
+
+        <div class="toolbar">
+          <label class="search"><span class="sr">Search projects</span><input id="proj-search" type="search" placeholder="Search projects, protocols, vendors" autocomplete="off"></label>
+          <div class="chips filter" id="proj-filters" role="group" aria-label="Filter projects"></div>
+        </div>
+        <div class="grid" id="proj-grid" aria-live="polite"></div>
+        <p class="empty" id="proj-empty" hidden>No projects match. Clear the search or choose another filter.</p>
+      </section>
+
+      <section class="view" id="view-standards" aria-labelledby="h-standards" hidden>
+        <h2 class="vh" id="h-standards">Architecture and standards guide</h2>
+        <p class="lead">Quick reference for design reviews. Check the current edition of each standard before you cite it in a deliverable.</p>
+        <div id="std-list"></div>
+        <div class="card">
+          <h3>IEC 62443 security levels</h3>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Security level table"><table id="sl-table"></table></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-tools" aria-labelledby="h-tools" hidden>
+        <h2 class="vh" id="h-tools">Field engineer tools</h2>
+
+        <div class="card" id="card-checklist">
+          <div class="row between"><h3>FAT / SAT commissioning checklist</h3><span class="tag" id="cl-progress" role="status">0 / 0</span></div>
+          <div class="profile">
+            <label>Project / site<select id="site-select"></select></label>
+            <label>Engineer name<input id="cl-engineer" autocomplete="name" maxlength="60"></label>
+            <button class="btn small ghost" id="site-del" type="button">Delete site</button>
+          </div>
+          <div class="bar" aria-hidden="true"><i id="cl-bar"></i></div>
+          <div id="cl-list"></div>
+          <div class="row wrap">
+            <button class="btn small" id="cl-json" type="button">Export JSON</button>
+            <button class="btn small" id="cl-csv" type="button">Export CSV</button>
+            <button class="btn small" id="cl-print" type="button">Print / Save PDF Report</button>
+            <button class="btn small ghost" id="cl-reset" type="button">Reset site</button>
+          </div>
+          <p class="hint">Progress is saved on this device only.</p>
+        </div>
+
+        <div class="card" id="card-backup">
+          <h3>Backup and restore</h3>
+          <p class="hint">Checklist progress, site profiles and queued enquiries live only on this device. Safari can clear website data after about 7 days without use in a browser tab (installed home-screen apps are exempt). Export a backup after each session.</p>
+          <div class="row wrap"><button class="btn small" id="bk-export" type="button">Export Full Backup (.json)</button><button class="btn small ghost" id="bk-import" type="button">Import Backup (.json)</button></div>
+          <input id="bk-file" type="file" accept="application/json,.json" aria-label="Choose backup file" hidden>
+        </div>
+
+        <div class="card" id="card-tags">
+          <h3>ISA PLC / SCADA tag naming generator</h3>
+          <form id="tag-form" class="form-grid" novalidate>
+            <label>Site code<input id="tg-site" value="DKT" maxlength="6" autocomplete="off"></label>
+            <label>Area / unit<input id="tg-area" value="VNT" maxlength="6" autocomplete="off"></label>
+            <label>Type<select id="tg-type"></select></label>
+            <label>Start number<input id="tg-num" type="number" min="1" max="9999" value="1"></label>
+            <label>Count<input id="tg-count" type="number" min="1" max="50" value="5"></label>
+            <label>Suffix (optional)<input id="tg-suffix" maxlength="8" placeholder="e.g. SP, PV, CMD" autocomplete="off"></label>
+          </form>
+          <pre class="out mono" id="tg-out" aria-live="polite"></pre>
+          <div class="row"><button class="btn small" id="tg-copy" type="button" aria-label="Copy generated tags">Copy</button><span class="hint" id="tg-msg" role="status"></span></div>
+        </div>
+
+        <div class="card" id="card-bw">
+          <h3>SCADA polling and network bandwidth estimator</h3>
+          <form id="bw-form" class="form-grid" novalidate>
+            <label>Tags polled<input id="bw-tags" type="number" min="1" value="5000"></label>
+            <label>Avg bytes per tag<input id="bw-bytes" type="number" min="1" value="4"></label>
+            <label>Poll interval (s)<input id="bw-int" type="number" min="0.05" step="0.05" value="1"></label>
+            <label>Protocol overhead (x)<input id="bw-ovh" type="number" min="1" step="0.1" value="3"></label>
+            <label>Link capacity (Mbit/s)<input id="bw-link" type="number" min="1" value="100"></label>
+            <label>Max utilisation (%)<input id="bw-max" type="number" min="1" max="100" value="30"></label>
+          </form>
+          <dl class="stats" id="bw-out" aria-live="polite"></dl>
+        </div>
+
+        <div class="card" id="card-fiber">
+          <h3>Fibre ring attenuation (loss budget)</h3>
+          <p class="hint">Calculate each ring span (switch to switch) on its own. The longest span is the critical one.</p>
+          <form id="fb-form" class="form-grid" novalidate>
+            <label>Distance (km)<input id="fb-km" type="number" min="0" step="any" value="10" inputmode="decimal"></label>
+            <label>Wavelength / fibre<select id="fb-wl"><option value="0.35">1310 nm SM (0.35 dB/km)</option><option value="0.25">1550 nm SM (0.25 dB/km)</option><option value="3">850 nm MM (3.0 dB/km)</option></select></label>
+            <label>Connectors (count)<input id="fb-con" type="number" min="0" step="1" value="4" inputmode="numeric"></label>
+            <label>Splices (count)<input id="fb-spl" type="number" min="0" step="1" value="2" inputmode="numeric"></label>
+            <label>Loss per connector (dB)<input id="fb-cl" type="number" min="0" step="any" value="0.5" inputmode="decimal"></label>
+            <label>Loss per splice (dB)<input id="fb-sl" type="number" min="0" step="any" value="0.1" inputmode="decimal"></label>
+            <label>Transceiver power budget (dB)<input id="fb-bud" type="number" min="0" step="any" value="11" inputmode="decimal"></label>
+            <label>Safety margin (dB)<input id="fb-mar" type="number" min="0" step="any" value="3" inputmode="decimal"></label>
+          </form>
+          <dl class="stats" id="fb-out" aria-live="polite"></dl>
+          <p class="hint">Defaults are typical values. Use your cable and connector datasheet figures, and the transceiver budget (minimum Tx power minus Rx sensitivity).</p>
+        </div>
+
+        <div class="card" id="card-analog">
+          <h3>4–20 mA / Siemens S7 analog scaling</h3>
+          <p class="hint">Edit any field and the others update. Siemens raw counts: 4 mA = 0, 20 mA = 27648.</p>
+          <form id="an-form" class="form-grid" novalidate>
+            <label>LRV (0 %)<input id="an-lrv" type="number" step="any" value="0" inputmode="decimal"></label>
+            <label>URV (100 %)<input id="an-urv" type="number" step="any" value="10" inputmode="decimal"></label>
+            <label>Unit<input id="an-unit" value="bar" maxlength="8" autocomplete="off"></label>
+            <label>Current (mA)<input id="an-ma" type="number" step="any" value="12" inputmode="decimal"></label>
+            <label>Raw counts (0–27648)<input id="an-raw" type="number" step="any" inputmode="decimal"></label>
+            <label>Percent (%)<input id="an-pct" type="number" step="any" inputmode="decimal"></label>
+            <label>Engineering value<input id="an-eu" type="number" step="any" inputmode="decimal"></label>
+          </form>
+          <div class="an-result"><div class="an-status" id="an-status" role="status" aria-live="polite"></div><button class="btn small" id="an-copy" type="button" aria-label="Copy scaling result">Copy</button></div>
+          <p class="hint">Fault thresholds: below 3.6 mA = wire break, above 20.5 mA = overflow.</p>
+        </div>
+
+        <div class="card" id="card-lookup">
+          <h3>OT protocol and diagnostics lookup</h3>
+          <label class="search"><span class="sr">Search reference</span><input id="lk-search" type="search" placeholder="Search codes, LEDs, security levels" autocomplete="off"></label>
+          <div class="chips filter" id="lk-filters" role="group" aria-label="Reference category"></div>
+          <ul class="lk-list" id="lk-list" aria-live="polite"></ul>
+          <p class="empty" id="lk-empty" hidden>No match. Try a code such as 02, an LED such as REDF, or SL3.</p>
+          <p class="hint">LED behaviour varies by CPU variant and firmware. Check the manual for your model.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="actionbar" id="actionbar" hidden>
+  <button class="act" id="call-btn" type="button" aria-label="Call emergency OT support"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3.5l1.5 4-2 1.5a11 11 0 0 0 6.5 6.5L16 14l4 1.5V19a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</button>
+  <button class="act" id="enq-btn" type="button" aria-label="Enquire: project enquiry or spec sheet request"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7M3 19l6.5-6.5M21 19l-6.5-6.5"/></svg>Enquire</button>
+</div>
+
+<nav class="bottomnav" id="bottomnav" aria-label="Sections" hidden>
+  <button class="nav-btn" data-view="showcase" type="button" aria-label="Project showcase"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V9l9-6 9 6v11h-6v-6H9v6z"/></svg>Showcase</button>
+  <button class="nav-btn" data-view="standards" type="button" aria-label="Architecture and standards"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/></svg>Standards</button>
+  <button class="nav-btn" data-view="tools" type="button" aria-label="Calculators and checklists"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v4H4zm0 6h7v10H4zm9 0h7v4h-7zm0 6h7v4h-7z"/></svg>Tools</button>
+</nav>
+
+<dialog id="call-dialog" aria-labelledby="call-title">
+  <form method="dialog" class="dlg">
+    <h2 id="call-title">Emergency OT support</h2>
+    <p>For live plant faults: loss of SCADA, redundancy failure, or network outage. Have the site name, PLC station and alarm text ready.</p>
+    <a class="btn danger block" id="call-link" href="tel:+97100000000">Call +971 0 000 0000</a>
+    <button class="btn ghost block" value="close">Close</button>
+  </form>
+</dialog>
+
+<dialog id="enq-dialog" aria-labelledby="enq-title">
+  <form id="enq-form" class="dlg" novalidate>
+    <h2 id="enq-title">Project enquiry / spec sheet request</h2>
+    <div class="chips filter topics" role="group" aria-label="Quick topics">
+      <button type="button" data-topic="spec" aria-pressed="false">Tunnel Automation Spec</button>
+      <button type="button" data-topic="arch" aria-pressed="false">S7-400H / WinCC Architecture</button>
+      <button type="button" data-topic="audit" aria-pressed="false">2026 SCADA Audit</button>
+    </div>
+    <label>Name<input id="enq-name" required autocomplete="name"><small class="err" id="err-name"></small></label>
+    <label>Email<input id="enq-email" type="email" required autocomplete="email"><small class="err" id="err-email"></small></label>
+    <label>Request type<select id="enq-type"><option>Spec sheet request</option><option>Project enquiry</option><option>Site survey</option><option>SCADA audit</option><option>Commissioning support</option></select></label>
+    <label>Subject<input id="enq-subject" autocomplete="off" maxlength="120"></label>
+    <label>Message<textarea id="enq-msg" rows="4" required minlength="10"></textarea><small class="err" id="err-msg"></small></label>
+    <p class="hint" id="enq-status" role="status"></p>
+    <div class="row wrap"><button class="btn" type="submit">Send by email</button><button class="btn ghost" type="button" id="enq-copy">Copy Enquiry to Clipboard</button><button class="btn ghost" type="button" id="enq-cancel">Cancel</button></div>
+  </form>
+</dialog>
+
+<dialog id="install-dialog" aria-labelledby="install-title">
+  <div class="dlg">
+    <h2 id="install-title">Install SCADA Guide</h2>
+    <div id="install-body"></div>
+    <div class="row wrap"><button class="btn" type="button" id="install-go" hidden>Install now</button><button class="btn ghost" type="button" id="install-close">Close</button></div>
+  </div>
+</dialog>
+
+<section id="print-report" aria-label="Printable commissioning report"></section>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<noscript><p style="padding:24px;font-family:sans-serif">This guide needs JavaScript. Open <a href="./offline.html">the offline emergency checklists</a> instead.</p></noscript>
+<script src="./js/app.js" defer></script>
+</body>
+</html>

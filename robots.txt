@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://esp046-cyber.github.io/infrastructureworkingguide/sitemap.xml

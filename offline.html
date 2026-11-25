@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#C84B1D">
+<title>Offline | SCADA Guide 2026</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<style>
+:root{color-scheme:light dark;--bg:#F8F9FA;--sf:#fff;--tx:#181A1F;--mu:#4A4F5A;--bd:#D9DCE2;--ac:#B8400F}
+@media(prefers-color-scheme:dark){:root{--bg:#181A1F;--sf:#22252C;--tx:#F4F5F7;--mu:#B4B9C4;--bd:#383C46;--ac:#E86A24}}
+*{box-sizing:border-box}
+body{margin:0;font:1rem/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+header{background:linear-gradient(180deg,#E86A24,#C84B1D 55%,#9E3314);color:#fff;padding:32px 20px}
+h1{margin:0 0 8px;font-size:1.5rem;line-height:1.2}
+main{max-width:720px;margin:0 auto;padding:20px}
+section{background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;margin-bottom:16px}
+h2{font-size:1.1rem;margin:0 0 8px;color:var(--ac)}
+li{margin:6px 0}
+code{font-family:"JetBrains Mono","Fira Code",ui-monospace,monospace;font-size:.9em}
+button{min-height:48px;padding:0 24px;border:0;border-radius:10px;background:#C84B1D;color:#fff;font:600 1rem inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--ac);outline-offset:3px}
+</style>
+</head>
+<body>
+<header><h1>You are offline</h1><p style="margin:0">This page was not cached, but the emergency checklists below are always available.</p></header>
+<main>
+<section><h2>Loss of SCADA communications</h2><ol>
+<li>Confirm local HMI / panel operation and record the time of loss.</li>
+<li>Check ring status LEDs on switches (MRP manager, <code>RM</code> / <code>RING</code> indicators).</li>
+<li>Check the PLC CPU state: RUN, STOP, and redundancy sync (<code>REDF</code> / <code>IFM</code> LEDs on an S7-400H).</li>
+<li>Verify the primary and standby server heartbeat links.</li>
+<li>Switch affected plant to local or manual control per the site procedure; log every action.</li>
+</ol></section>
+<section><h2>Redundant PLC switchover</h2><ol>
+<li>Confirm the standby CPU is in SYNCUP then RUN (redundant) before any maintenance.</li>
+<li>Do not stop both CPUs; stop only the CPU being serviced.</li>
+<li>After restart, confirm the sync module link and compare program versions.</li>
+</ol></section>
+<section><h2>Network fault isolation</h2><ol>
+<li>Ping the gateway and PLC addresses from the engineering station.</li>
+<li>Check fiber link light levels and connector cleanliness on the failed segment.</li>
+<li>Confirm the ring has reconfigured (the ring manager should show an open ring, not a blocked port, after a single break).</li>
+</ol></section>
+<button type="button" id="retry" aria-label="Retry connection">Retry connection</button>
+</main>
+<script>
+document.getElementById('retry').addEventListener('click',function(){ if(navigator.onLine){location.href='./index.html';}else{this.textContent='Still offline. Try again';} });
+window.addEventListener('online',function(){location.href='./index.html';});
+</script>
+</body>
+</html>

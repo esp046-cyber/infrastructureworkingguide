@@ -1,0 +1,141 @@
+{
+  "name": "2026 Infrastructure & SCADA Engineering Working Guide",
+  "short_name": "SCADA Guide",
+  "description": "Field and project guide for infrastructure SCADA engineers: tunnel automation case studies, IEC 62443, ISA-18.2, FAT/SAT checklists and calculators. Works offline.",
+  "id": "/infrastructureworkingguide/",
+  "start_url": "/infrastructureworkingguide/",
+  "scope": "/infrastructureworkingguide/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#C84B1D",
+  "background_color": "#181A1F",
+  "lang": "en",
+  "categories": [
+    "productivity",
+    "utilities",
+    "education",
+    "business"
+  ],
+  "icons": [
+    {
+      "src": "/infrastructureworkingguide/icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/infrastructureworkingguide/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/infrastructureworkingguide/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "FAT/SAT Checklist",
+      "short_name": "Checklist",
+      "url": "/infrastructureworkingguide/index.html#tools",
+      "icons": [
+        {
+          "src": "/infrastructureworkingguide/icons/icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Standards Guide",
+      "short_name": "Standards",
+      "url": "/infrastructureworkingguide/index.html#standards",
+      "icons": [
+        {
+          "src": "/infrastructureworkingguide/icons/icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Project Showcase",
+      "short_name": "Projects",
+      "url": "/infrastructureworkingguide/index.html#showcase",
+      "icons": [
+        {
+          "src": "/infrastructureworkingguide/icons/icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/infrastructureworkingguide/screenshots/screenshot-mobile.png",
+      "sizes": "540x960",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Tunnel automation case study"
+    },
+    {
+      "src": "/infrastructureworkingguide/screenshots/screenshot-desktop.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop sidebar layout"
+    }
+  ]
+}
